@@ -16,8 +16,8 @@ module Fastlane
 
         # getting parameters
         file_path = params[:file_path]
-        file_name = File.basename(file_path) unless file_path == nil
-        
+        file_name = File.basename(file_path) unless file_path.nil?
+
         Actions.lane_context[SharedValues::REDMINE_UPLOAD_FILE_NAME] = file_name
 
         redmine_url = params[:redmine_host]
@@ -25,9 +25,9 @@ module Fastlane
         username = params[:redmine_username]
         password = params[:redmine_password]
 
-        upload_content_uri = URI.parse(redmine_url+'/uploads.json')
+        upload_content_uri = URI.parse(redmine_url + '/uploads.json')
         UI.message("Start file upload \"#{file_name}\" to Redmine API #{upload_content_uri}")
-  
+
         token = nil
         response_upload_content = nil
         File.open(file_path, 'rb') do |io|
@@ -36,31 +36,31 @@ module Fastlane
           request_upload_content = Net::HTTP::Post.new(upload_content_uri.request_uri)
 
           request_upload_content["Content-Type"] = "application/octet-stream"
-          unless api_key == nil 
-            request_upload_content["X-Redmine-API-Key"] = "#{api_key}"
+          unless api_key.nil?
+            request_upload_content["X-Redmine-API-Key"] = api_key.to_s
           end
-          unless username == nil || password == nil
-            request_upload_content.basic_auth username, password
+          unless username.nil? || password.nil?
+            request_upload_content.basic_auth(username, password)
           end
 
           request_upload_content.content_length = io.size
           request_upload_content.body_stream = io
           # print upload progress
           Net::HTTP::UploadProgress.new(request_upload_content) do |progress|
-            printf("\rUploading \"#{file_name}\"...  #{ 100 * progress.upload_size / io.size }%")
+            printf("\rUploading \"#{file_name}\"...  #{100 * progress.upload_size / io.size}%")
           end
           # Send the request
           response_upload_content = http_upload_content.request(request_upload_content)
           printf("\n")
         end
         case response_upload_content
-          when Net::HTTPSuccess
-            # get token from upload content response
-            token=JSON.parse(response_upload_content.body)['upload']['token']
-            UI.success("Content uploaded! File token released: #{token}")
-            Actions.lane_context[SharedValues::REDMINE_UPLOAD_FILE_TOKEN] = token
-          else
-            UI.error(response_upload_content.value)
+        when Net::HTTPSuccess
+          # get token from upload content response
+          token = JSON.parse(response_upload_content.body)['upload']['token']
+          UI.success("Content uploaded! File token released: #{token}")
+          Actions.lane_context[SharedValues::REDMINE_UPLOAD_FILE_TOKEN] = token
+        else
+          UI.error(response_upload_content.value)
           end
       end
 
