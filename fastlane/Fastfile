@@ -1,8 +1,14 @@
 lane :test do
   redmine_upload(
     redmine_host: 'https://www.redmine.org',
-     redmine_api_key: 'a3c56cd35421d03802b217cac749aa1a1508c0ba',
-     file_path: "/path/to/your/file"
+    redmine_api_key: 'a3c56cd35421d03802b217cac749aa1a1508c0ba',
+    file_path: "/path/to/your/file"
   )
-  UI.message("Token is #{lane_context[SharedValues::REDMINE_UPLOAD_FILE_TOKEN]}")
+  redmine_file_post(
+	redmine_host: 'https://www.redmine.org',
+    redmine_api_key: 'a3c56cd35421d03802b217cac749aa1a1508c0ba',
+    file_token: lane_context[SharedValues::REDMINE_UPLOAD_FILE_TOKEN],
+    file_version: "1.0.0",
+    file_description: "This is a file"
+  )
 end
