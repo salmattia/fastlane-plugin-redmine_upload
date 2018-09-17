@@ -25,13 +25,13 @@ module Fastlane
           }
         }
 
-        unless file_version = nil
+        if file_version != nil
           json_content["file"]["version_id"] = file_version
         end
-        unless file_name = nil
+        if file_name != nil
           json_content["file"]["filename"] = file_name
         end
-        unless file_description = nil
+        if file_description != nil
           json_content["file"]["description"] = file_description
         end
             
