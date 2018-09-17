@@ -20,7 +20,7 @@ module Fastlane
         # prepare request with token previously got from upload
         
         json_content = {
-          "file" = file_data => {
+          "file" => {
             "token" => token
           }
         }
