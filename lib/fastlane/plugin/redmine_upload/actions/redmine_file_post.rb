@@ -32,7 +32,7 @@ module Fastlane
 
         # Create the HTTP objects
         http_file_post = Net::HTTP.new(upload_file_uri.host, upload_file_uri.port)
-        request_file = _post(Net::HTTP::Post.new(upload_file_uri.request_uri))
+        request_file = Net::HTTP::Post.new(upload_file_uri.request_uri)
 
         request_file["Content-Type"] = "application/json"
         unless api_key.nil?
