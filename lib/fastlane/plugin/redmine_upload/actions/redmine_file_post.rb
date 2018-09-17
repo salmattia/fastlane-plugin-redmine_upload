@@ -23,7 +23,7 @@ module Fastlane
           "file" => file_data = {
             "token" => token,
             "filename" => file_name,
-            "version" => file_version,
+            "version_id" => file_version,
             "description" => file_description
           }
         }
