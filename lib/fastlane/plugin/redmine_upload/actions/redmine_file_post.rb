@@ -13,6 +13,7 @@ module Fastlane
         password = params[:redmine_password]
         project = params[:redmine_project]
         token = params[:file_token]
+        file_name = params[:file_name]
         file_version = params[:file_version]
         file_description = params[:file_description]
 
@@ -98,6 +99,11 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :file_token,
                                   env_name: "FILE_TOKEN",
                                description: "Token of file previously released",
+                                  optional: false,
+                                      type: String),
+          FastlaneCore::ConfigItem.new(key: :file_name,
+                                  env_name: "FILE_NAME",
+                               description: "FIle name",
                                   optional: false,
                                       type: String),
           FastlaneCore::ConfigItem.new(key: :file_version,
