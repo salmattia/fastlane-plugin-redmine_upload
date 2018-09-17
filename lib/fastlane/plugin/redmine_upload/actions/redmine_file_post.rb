@@ -36,11 +36,15 @@ module Fastlane
 
         request_file["Content-Type"] = "application/json"
         unless api_key.nil?
-          request_upload_content["X-Redmine-API-Key"] = api_key.to_s
+          request_file["X-Redmine-API-Key"] = api_key.to_s
         end
         unless username.nil? || password.nil?
-          request_upload_content.basic_auth(username, password)
+          request_file.basic_auth(username, password)
         end
+
+        request_upload_file.body = file_body
+          # Send the request
+        response_upload_file = http_upload_file.request(request_upload_file)
 
         case response_upload_file
         when Net::HTTPSuccess
