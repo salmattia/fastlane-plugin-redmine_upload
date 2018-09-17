@@ -21,12 +21,13 @@ module Fastlane
         
         json_content = {
           "file" = file_data => {
-            "token" => token,
-            "version_id" => file_version if file_version.present?,
-            "filename" => file_name if file_name.present?,
-            "description" => file_description if file_description.present?
+            "token" => token
           }
         }
+
+        json_content["file"]["version_id"] = file_version if file_version.present?
+        json_content["file"]["filename"] = file_name if file_name.present?
+        json_content["file"]["description"] = file_description if file_description.present?
             
         file_body = JSON.pretty_generate(json_content)
         UI.message("File post with content #{file_body}")
