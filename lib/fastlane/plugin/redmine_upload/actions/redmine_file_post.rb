@@ -17,7 +17,7 @@ module Fastlane
         file_version = params[:file_version]
         file_description = params[:file_description]
 
-        file_post_uri = URI.parse(redmine_url + "/projects/#{project}/files.json")
+        upload_file_uri = URI.parse(redmine_url + "/projects/#{project}/files.json")
         # prepare request with token previously got from upload
         json_content = {
           "file" => file_data = {
