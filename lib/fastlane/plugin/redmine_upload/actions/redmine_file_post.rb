@@ -18,7 +18,7 @@ module Fastlane
 
         upload_file_uri = URI.parse(redmine_url + "/projects/#{project}/files.json")
         # prepare request with token previously got from upload
-        json_content = {
+        json_content => file_data = {
           "file" = {
             "token" => token
           }
