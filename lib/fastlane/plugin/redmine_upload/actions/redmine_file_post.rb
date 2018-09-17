@@ -22,9 +22,9 @@ module Fastlane
         json_content = {
           "file" = file_data => {
             "token" => token,
-            "version_id" => file_version unless file_version = nil,
-            "filename" => file_version unless file_version = nil,
-            "description" => file_description unless file_description = nil
+            "version_id" => file_version if file_version.present?,
+            "filename" => file_name if file_name.present?,
+            "description" => file_description if file_description.present?
           }
         }
             
