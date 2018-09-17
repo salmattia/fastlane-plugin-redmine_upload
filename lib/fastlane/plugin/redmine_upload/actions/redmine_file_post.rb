@@ -44,7 +44,7 @@ module Fastlane
 
         request_file.body = file_body
           # Send the request
-        request_file = http_file_post.request(request_upload_file)
+        request_file = http_file_post.request(request_file)
 
         case request_file
         when Net::HTTPSuccess
