@@ -42,18 +42,16 @@ module Fastlane
           request_file.basic_auth(username, password)
         end
 
-        request_upload_file.body = file_body
+        request_file.body = file_body
           # Send the request
-        response_upload_file = http_upload_file.request(request_upload_file)
+        request_file = http_upload_file.request(request_upload_file)
 
-        case response_upload_file
+        case request_file
         when Net::HTTPSuccess
           UI.success("File uploaded successfully")
-        when Net::HTTPRedirection
-
         else
-          UI.error(response_upload_file.value)
-          end
+          UI.error(request_file.value)
+        end
       end
 
       def self.description
