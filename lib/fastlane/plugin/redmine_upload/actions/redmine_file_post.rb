@@ -18,12 +18,8 @@ module Fastlane
 
         upload_file_uri = URI.parse(redmine_url + "/projects/#{project}/files.json")
         # prepare request with token previously got from upload
-        json_content = {
-          "file" = file_data => {
-            "token" => token
-          }
-        }
-
+        
+        json_content["file"]["token"] = token
         json_content["file"]["filename"] = file_name unless file_name = nil
         json_content["file"]["version_id"] = file_version unless file_version = nil
         json_content["file"]["description"] = file_description unless file_description = nil
