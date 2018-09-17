@@ -25,9 +25,15 @@ module Fastlane
           }
         }
 
-        json_content["file"]["version_id"] = file_version unless file_version = nil
-        json_content["file"]["filename"] = file_name unless file_name = nil
-        json_content["file"]["description"] = file_description unless file_description = nil
+        unless file_version = nil
+          json_content["file"]["version_id"] = file_version
+        end
+        unless file_name = nil
+          json_content["file"]["filename"] = file_name
+        end
+        unless file_description = nil
+          json_content["file"]["description"] = file_description
+        end
             
         file_body = JSON.pretty_generate(json_content)
         UI.message("File post with content #{file_body}")
